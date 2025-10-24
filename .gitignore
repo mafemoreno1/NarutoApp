@@ -1,21 +1,9 @@
-# Entorno virtual
-venv/
-env/
-.venv/
 
-# Archivos de Python
+venv/
+
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-.Python
-.ipynb_checkpoints
 
-# Base de datos (no subir datos locales)
 instance/
 *.db
 
-# IDE
-.vscode/
-.idea/
-.DS_Store
