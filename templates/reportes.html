@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Reportes</title></head>
+<body>
+<h1>📋 Reportes</h1>
+
+<h2>Ninjas</h2>
+<ul>
+{% for n in ninjas %}
+  <li>{{ n.nombre }} ({{ n.rango }}) - Aldea: {{ n.aldea.nombre }} - ATK: {{ n.ataque }}</li>
+{% endfor %}
+</ul>
+
+<h2>Misiones</h2>
+<ul>
+{% for m in misiones %}
+  <li>{{ m.nombre }} (Rango {{ m.rango }}) - Recompensa: {{ m.recompensa }} - Requiere: {{ m.rango_minimo }}</li>
+{% endfor %}
+</ul>
+
+<a href="/">← Volver</a>
+</body>
+</html>
