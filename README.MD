@@ -6,7 +6,7 @@ Aplicación cliente-servidor **monolítica** en Python/Flask que permite a la Al
 ## Requisitos del trabajo cumplidos
 
 -**Arquitectura** Monolítica cliente-servidor (Flask + HTML) 
--**POO** Clases: `Ninja`, `Mision`, `Aldea`, `Jutsu`, `AsignacionMision`, `ExportVisitor`, etc. 
+-**Programación orientada a objetos** Clases: `Ninja`, `Mision`, `Aldea`, `Jutsu`, `AsignacionMision`, `ExportVisitor`, etc. 
 -**Persistencia** Base de datos relacional **SQLite**, con modelo MER normalizado 
 -**Exportación** Reportes en **CSV y JSON** usando el **patrón de diseño Visitor** 
 -**Docker** Contenerización completa con persistencia de datos 
