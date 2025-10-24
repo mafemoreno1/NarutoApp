@@ -137,17 +137,7 @@ def exportar(formato):
     else:
         return jsonify({"error": "Formato no soportado. Use 'csv' o 'json'."}), 400
 
-@app.route('/api/ninjas/<int:ninja_id>', methods=['DELETE'])
-def eliminar_ninja(ninja_id):
-    ninja = Ninja.query.get(ninja_id)
-    if not ninja:
-        return jsonify({"error": "Ninja no encontrado"}), 404
-    AsignacionMision.query.filter_by(ninja_id=ninja_id).delete()
-    db.session.delete(ninja)
-    db.session.commit()
-    return jsonify({"mensaje": "Ninja eliminado"}), 200
-
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()  # Crea las tablas si no existen
+        db.create_all()  
     app.run(host='0.0.0.0', port=5000, debug=True)
