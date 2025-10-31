@@ -1,11 +1,132 @@
 <!DOCTYPE html>
-<html>
-<head><title>Naruto App</title></head>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Ninja - Konoha</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c3e50, #4a6fa5);
+            color: #fff;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 3px solid #f39c12;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #f39c12;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .nav {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            color: #f39c12;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .feature-box {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        .feature-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .feature-box h3 {
+            color: #f39c12;
+            margin-top: 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            font-size: 0.9em;
+            color: #ccc;
+        }
+    </style>
+</head>
 <body>
-<h1>🛡️ Sistema de Gestión Ninja</h1>
-<ul>
-  <li><a href="/reportes">Ver Reportes</a></li>
-  <li>Usa Postman o curl para interactuar con la API (ej: POST /api/ninjas)</li>
-</ul>
+    <div class="container">
+        <header>
+            <div class="logo">N</div>
+            <h1>Sistema de Gestión Ninja </h1>
+        </header>
+
+        <div class="nav">
+            <a href="/reportes">📋 Ver Reportes</a>
+            <a href="/api/ninjas">⚔️ Registrar Ninja</a>
+            <a href="/api/misiones">📜 Registrar Misión</a>
+        </div>
+
+        <div class="features">
+            <div class="feature-box">
+                <h3>👥 Gestión de Ninjas</h3>
+                <p>Registra, consulta y lista a todos los ninjas de Konoha con sus estadísticas, aldea y jutsus aprendidos.</p>
+            </div>
+            <div class="feature-box">
+                <h3>🎯 Gestión de Misiones</h3>
+                <p>Crea misiones con rango, recompensa y requisitos mínimos de rango para asignarlas a los ninjas adecuados.</p>
+            </div>
+            <div class="feature-box">
+                <h3>📊 Exportación de Reportes</h3>
+                <p>Descarga reportes en CSV o JSON con toda la información de ninjas y misiones para análisis o presentaciones.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Sistema de Gestión Ninja - Aldea Oculta de la Hoja | Desarrollado con Python Flask</p>
+        </div>
+    </div>
 </body>
 </html>
+

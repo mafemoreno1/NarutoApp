@@ -1,23 +1,169 @@
 <!DOCTYPE html>
-<html>
-<head><title>Reportes</title></head>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 Reportes - Sistema de Gestión Ninja</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
+            color: #fff;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 3px solid #f39c12;
+        }
+        h1 {
+            font-size: 2.2em;
+            margin: 0;
+            color: #f39c12;
+        }
+        .nav {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #f39c12;
+        }
+        .section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .section h2 {
+            color: #f39c12;
+            border-bottom: 2px solid #f39c12;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: rgba(0, 0, 0, 0.2);
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .ninja-info, .mision-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        .stats {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+        .stat {
+            background: rgba(243, 156, 18, 0.2);
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+        .jutsus {
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: #a3d9a5;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
 <body>
-<h1>📋 Reportes</h1>
+    <div class="container">
+        <header>
+            <h1>📋 Reportes del Sistema Ninja</h1>
+        </header>
 
-<h2>Ninjas</h2>
-<ul>
-{% for n in ninjas %}
-  <li>{{ n.nombre }} ({{ n.rango }}) - Aldea: {{ n.aldea.nombre }} - ATK: {{ n.ataque }}</li>
-{% endfor %}
-</ul>
+        <div class="nav">
+            <a href="/">← Volver al Inicio</a>
+            <a href="/api/export/csv" target="_blank">📄 Exportar CSV</a>
+            <a href="/api/export/json" target="_blank">📄 Exportar JSON</a>
+        </div>
 
-<h2>Misiones</h2>
-<ul>
-{% for m in misiones %}
-  <li>{{ m.nombre }} (Rango {{ m.rango }}) - Recompensa: {{ m.recompensa }} - Requiere: {{ m.rango_minimo }}</li>
-{% endfor %}
-</ul>
+        <!-- Ninjas -->
+        <div class="section">
+            <h2>👥 Ninjas Registrados</h2>
+            {% if ninjas %}
+                <ul>
+                {% for n in ninjas %}
+                    <li>
+                        <div class="ninja-info">
+                            <strong>{{ n.nombre }}</strong> <span style="color: #f39c12;">({{ n.rango }})</span><br>
+                            Aldea: {{ n.aldea.nombre if n.aldea else 'Sin aldea' }}
+                            <div class="jutsus">
+                                Jutsus: {{ n.jutsus | join(', ') or 'Ninguno' }}
+                            </div>
+                        </div>
+                        <div class="stats">
+                            <span class="stat">ATK: {{ n.ataque }}</span>
+                            <span class="stat">DEF: {{ n.defensa }}</span>
+                            <span class="stat">CHA: {{ n.chakra }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay ninjas registrados.</p>
+            {% endif %}
+        </div>
 
-<a href="/">← Volver</a>
+        <!-- Misiones -->
+        <div class="section">
+            <h2>🎯 Misiones Registradas</h2>
+            {% if misiones %}
+                <ul>
+                {% for m in misiones %}
+                    <li>
+                        <div class="mision-info">
+                            <strong>{{ m.nombre }}</strong> <span style="color: #f39c12;">(Rango {{ m.rango }})</span><br>
+                            Recompensa: {{ "%.2f"|format(m.recompensa) }} ryo<br>
+                            Requisito mínimo: {{ m.rango_minimo }}
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay misiones registradas.</p>
+            {% endif %}
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Aldea Oculta de la Hoja - Sistema de Gestión Ninja</p>
+        </div>
+    </div>
 </body>
 </html>

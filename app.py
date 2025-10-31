@@ -1,4 +1,5 @@
 import os
+from sqlalchemy.orm import joinedload
 from flask import Flask, request, jsonify, render_template
 from database import db
 from models import Ninja, Mision, Aldea, Jutsu, AsignacionMision
@@ -23,7 +24,7 @@ def index():
 
 @app.route('/reportes')
 def reportes():
-    ninjas = Ninja.query.all()
+    ninjas = Ninja.query.options(db.joinedload(Ninja.aldea), db.joinedload(Ninja.jutsus)).all()
     misiones = Mision.query.all()
     return render_template('reportes.html', ninjas=ninjas, misiones=misiones)
 
@@ -31,11 +32,17 @@ def reportes():
 @app.route('/api/ninjas', methods=['POST'])
 def crear_ninja():
     data = request.json
+    if not data or 'nombre' not in data or 'rango' not in data or 'aldea' not in data:
+        return jsonify({"error": "Faltan datos obligatorios: nombre, rango, aldea"}), 400
+
+    # Crear o buscar aldea
     aldea = Aldea.query.filter_by(nombre=data['aldea']).first()
     if not aldea:
         aldea = Aldea(nombre=data['aldea'])
         db.session.add(aldea)
         db.session.commit()
+
+    # Crear ninja
     ninja = Ninja(
         nombre=data['nombre'],
         rango=data['rango'],
@@ -46,11 +53,23 @@ def crear_ninja():
     )
     db.session.add(ninja)
     db.session.commit()
+
+    # Asignar jutsus (si se envían)
+    jutsus_nombres = data.get('jutsus', [])
+    for nombre_jutsu in jutsus_nombres:
+        jutsu = Jutsu.query.filter_by(nombre=nombre_jutsu).first()
+        if not jutsu:
+            jutsu = Jutsu(nombre=nombre_jutsu, tipo="Desconocido")
+            db.session.add(jutsu)
+            db.session.commit()
+        ninja.jutsus.append(jutsu)
+
+    db.session.commit()
     return jsonify({"id": ninja.id}), 201
 
 @app.route('/api/ninjas', methods=['GET'])
 def listar_ninjas():
-    ninjas = Ninja.query.all()
+    ninjas = Ninja.query.options(joinedload(Ninja.aldea), joinedload(Ninja.jutsus)).all()
     return jsonify([{
         'id': n.id,
         'nombre': n.nombre,
@@ -58,7 +77,8 @@ def listar_ninjas():
         'ataque': n.ataque,
         'defensa': n.defensa,
         'chakra': n.chakra,
-        'aldea': n.aldea.nombre
+        'aldea': n.aldea.nombre,
+        'jutsus': [j.nombre for j in n.jutsus]  # ← ¡Aquí se muestran los jutsus!
     } for n in ninjas])
 
 @app.route('/api/misiones', methods=['POST'])
