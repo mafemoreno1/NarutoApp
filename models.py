@@ -18,7 +18,7 @@ class Jutsu(db.Model):
 class Ninja(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
-    rango = db.Column(db.String(20), nullable=False)  # Genin, Chūnin, Jōnin
+    rango = db.Column(db.String(20), nullable=False)  
     ataque = db.Column(db.Integer, default=0)
     defensa = db.Column(db.Integer, default=0)
     chakra = db.Column(db.Integer, default=0)
@@ -34,9 +34,9 @@ class Ninja(db.Model):
 class Mision(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
-    rango = db.Column(db.String(10), nullable=False)  # D, C, B, A, S
+    rango = db.Column(db.String(10), nullable=False)  
     recompensa = db.Column(db.Float, nullable=False)
-    rango_minimo = db.Column(db.String(20), nullable=False)  # Genin, Chūnin, Jōnin
+    rango_minimo = db.Column(db.String(20), nullable=False)  
 
 # Método para el patrón Visitor
     def accept(self, visitor):

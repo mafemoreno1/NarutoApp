@@ -78,7 +78,7 @@ def listar_ninjas():
         'defensa': n.defensa,
         'chakra': n.chakra,
         'aldea': n.aldea.nombre,
-        'jutsus': [j.nombre for j in n.jutsus]  # ← ¡Aquí se muestran los jutsus!
+        'jutsus': [j.nombre for j in n.jutsus]  
     } for n in ninjas])
 
 @app.route('/api/misiones', methods=['POST'])
@@ -156,6 +156,66 @@ def exportar(formato):
 
     else:
         return jsonify({"error": "Formato no soportado. Use 'csv' o 'json'."}), 400
+    
+    # === FORMULARIOS WEB ===
+
+@app.route('/registrar/ninja', methods=['GET', 'POST'])
+def registrar_ninja_web():
+    if request.method == 'POST':
+        data = {
+            'nombre': request.form['nombre'],
+            'rango': request.form['rango'],
+            'ataque': int(request.form.get('ataque', 0)),
+            'defensa': int(request.form.get('defensa', 0)),
+            'chakra': int(request.form.get('chakra', 0)),
+            'aldea': request.form['aldea'],
+            'jutsus': request.form.get('jutsus', '').split(',') if request.form.get('jutsus') else []
+        }
+        # Reutiliza tu lógica existente
+        aldea = Aldea.query.filter_by(nombre=data['aldea']).first()
+        if not aldea:
+            aldea = Aldea(nombre=data['aldea'])
+            db.session.add(aldea)
+            db.session.commit()
+
+        ninja = Ninja(
+            nombre=data['nombre'],
+            rango=data['rango'],
+            ataque=data['ataque'],
+            defensa=data['defensa'],
+            chakra=data['chakra'],
+            aldea_id=aldea.id
+        )
+        db.session.add(ninja)
+        db.session.commit()
+
+        for nombre_jutsu in data['jutsus']:
+            nombre_jutsu = nombre_jutsu.strip()
+            if nombre_jutsu:
+                jutsu = Jutsu.query.filter_by(nombre=nombre_jutsu).first()
+                if not jutsu:
+                    jutsu = Jutsu(nombre=nombre_jutsu, tipo="Desconocido")
+                    db.session.add(jutsu)
+                    db.session.commit()
+                ninja.jutsus.append(jutsu)
+        db.session.commit()
+        return render_template('index.html', mensaje="¡Ninja registrado exitosamente!")
+    return render_template('form_ninja.html')
+
+
+@app.route('/registrar/mision', methods=['GET', 'POST'])
+def registrar_mision_web():
+    if request.method == 'POST':
+        mision = Mision(
+            nombre=request.form['nombre'],
+            rango=request.form['rango'],
+            recompensa=float(request.form['recompensa']),
+            rango_minimo=MISION_RANGO_NINJA.get(request.form['rango'], 'Jōnin')
+        )
+        db.session.add(mision)
+        db.session.commit()
+        return render_template('index.html', mensaje="¡Misión registrada exitosamente!")
+    return render_template('form_mision.html')
 
 if __name__ == '__main__':
     with app.app_context():

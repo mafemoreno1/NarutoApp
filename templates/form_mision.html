@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Misión</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c3e50, #4a6fa5);
+            color: #fff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .form-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        h2 {
+            text-align: center;
+            color: #f39c12;
+            margin-top: 0;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        button {
+            background: #2980b9;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #3498db;
+        }
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #a3d9a5;
+            text-decoration: none;
+        }
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h2>➕ Registrar Misión</h2>
+            <form method="POST">
+                <input type="text" name="nombre" placeholder="Nombre de la misión" required>
+                <select name="rango" required>
+                    <option value="D">D</option>
+                    <option value="C">C</option>
+                    <option value="B">B</option>
+                    <option value="A">A</option>
+                    <option value="S">S</option>
+                </select>
+                <input type="number" step="0.01" name="recompensa" placeholder="Recompensa (ryo)" required>
+                <button type="submit">Registrar Misión</button>
+            </form>
+            <a href="/" class="back">← Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>

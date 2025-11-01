@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Ninja</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c3e50, #4a6fa5);
+            color: #fff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .form-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        h2 {
+            text-align: center;
+            color: #f39c12;
+            margin-top: 0;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        button {
+            background: #f39c12;
+            color: #2c3e50;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #e67e22;
+        }
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #a3d9a5;
+            text-decoration: none;
+        }
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h2>➕ Registrar Ninja</h2>
+            <form method="POST">
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <select name="rango" required>
+                    <option value="Genin">Genin</option>
+                    <option value="Chūnin">Chūnin</option>
+                    <option value="Jōnin">Jōnin</option>
+                </select>
+                <input type="number" name="ataque" placeholder="Ataque" value="0" min="0">
+                <input type="number" name="defensa" placeholder="Defensa" value="0" min="0">
+                <input type="number" name="chakra" placeholder="Chakra" value="0" min="0">
+                <input type="text" name="aldea" placeholder="Aldea (ej: Konoha)" required>
+                <input type="text" name="jutsus" placeholder="Jutsus (separados por comas, ej: Rasengan,Clonación)">
+                <button type="submit">Registrar Ninja</button>
+            </form>
+            <a href="/" class="back">← Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>
